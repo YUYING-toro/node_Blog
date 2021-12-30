@@ -4,7 +4,13 @@
     var article = {};
 %>
 
-<form   action="/dashboard/article/create"  method="POST"   class="row justify-content-center">
+<form     method="POST"   class="row justify-content-center"
+  <% if (article.id){ %>
+    action="/dashboard/article/update/<%- article.id %>"
+  <% }else{ %>
+    action="/dashboard/article/create"
+  <% } %>
+>
   <div class="col-md-6">   
     <label for="title">請輸入標題</label>
     <input type="text" id="title" class="form-control" name="title" placeholder="標題" value="<%- article.title || '' %>">
@@ -62,3 +68,4 @@
     </div>
   </div>
 </form>
+
