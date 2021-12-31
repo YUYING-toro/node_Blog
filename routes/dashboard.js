@@ -47,7 +47,9 @@ router.post('/article/create', function(req, res) {
   data.id = key;
   data.time = updateTime;
   articleRef.set(data).then(function(){
-    res.redirect(`/dashboard/article/${key}`);
+    // res.redirect(`/dashboard/article/${key}`);
+    res.redirect(`/dashboard/archives`);
+
   })  
 })
 router.post('/article/update/:id', function(req, res) {

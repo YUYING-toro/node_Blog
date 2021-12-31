@@ -3,7 +3,7 @@
   if(article === undefined)
     var article = {};
 %>
-
+<!-- 以上 因為此版 可新增 也顯示舊內容 為防空值 -->
 <form     method="POST"   class="row justify-content-center"
   <% if (article.id){ %>
     action="/dashboard/article/update/<%- article.id %>"

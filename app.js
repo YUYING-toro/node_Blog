@@ -6,6 +6,8 @@ var logger = require('morgan');
 var bodyParser = require('body-parser');
 var indexRouter = require('./routes/index');
 var dashboardRouter = require('./routes/dashboard');  
+// var auth = require('./routes/auth');
+// require('dotenv').config();
   //提取路徑 25  連結url 與動作路徑 > 在dashboard.js 即可 router.get('/categories', function(~~
   //categories delete 顯示資訊
 var flash = require('connect-flash');
@@ -38,10 +40,18 @@ app.use( session({
 }));
 app.use(flash());
 
+// const authCheck = function (req,res,next){
+//   console.log('middleware app.js 43', req.session);
+//   if(req.session.uid === process.env.ADMIN_UID){
+//     return next();
+//   }
+//   return res.redirect('/auth/signin');
+// }
+
 //建立 url 與 js 動作關係
 app.use('/', indexRouter); //line 7
 app.use('/dashboard', dashboardRouter);  //即不用 dashboard.js router.get('/dashboard/categories', function(
-
+// app.use('/auth',auth);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
@@ -55,7 +65,9 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.render('error',{
+    title: '沒有此文',
+  });
 });
 
 module.exports = app;
