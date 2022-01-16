@@ -1,21 +1,22 @@
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>商務控制後台</title>
+  <title>Management</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <style>
     html {
       font-size: 14px;
     }
-
     .main {
       min-height: calc(100vh - (49px + 49px + 42px + 18px))
+    }
+    a{
+      border-radius: 5px;
+      border-bottom: solid 1px orange;
     }
   </style>
   <!-- JavaScript -->
@@ -24,120 +25,99 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> 
   <script src="https://cdn.ckeditor.com/4.8.0/standard/ckeditor.js"></script>
 </head>
-
 <body>
-  <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-    <a class="navbar-brand" href="/dashboard/">Blog 控制台</a>
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark ">
+    <a class="navbar-brand" href="/">Home</a>
+    <a class="navbar-brand" href="/dashboard/archives">Articles management </a>
+    <a class="navbar-brand" href="/dashboard/categories">Categories management </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
-      aria-expanded="false" aria-label="Toggle navigation">
+        aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
-        </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
-        
-        <a class="nav-item nav-link active" href="archives.html">文章管理 </a>
-        <a class="nav-item nav-link " href="categories.html">分類管理 </a>
-        
+    </button>
+     <!-- <a class="nav-link" href="#">Log out</a> -->
+</nav>
+  <div class="main container-fluid my-4">  
+  <div class="row justify-content-center">
+    <div class="col-md-6">    
+      <div class="btn-group w-100">
+        <a href="/dashboard/archives?status=public" class="btn btn-outline-secondary w-100 rounded-0 <% if( status === 'public') { %>active<% } %>">Published</a>
+        <a href="/dashboard/archives?status=draft" class="btn btn-outline-secondary w-100 rounded-0 <% if( status === 'draft') { %>active<% } %>">Draft</a>
+        <a href="/dashboard/article/create" class="btn btn-warning ">New post</a>
       </div>
-    </div>
-    <a class="nav-link" href="#">登出</a>
-  </nav>
-  <div class="main container-fluid my-4">
-    
-
-<div class="row justify-content-center">
-  <div class="col-md-6">
-    
-
-    
-
-    <div class="btn-group w-100">
-      <a href="/dashboard/archives?status=public" class="btn btn-outline-secondary w-100 rounded-0 <% if( status === 'public') { %>active<% } %>">已發佈</a>
-      <a href="/dashboard/archives?status=draft" class="btn btn-outline-secondary w-100 rounded-0 <% if( status === 'draft') { %>active<% } %>">草稿</a>
-      <a href="/dashboard/article/create" class="btn btn-primary">新增文章</a>
-    </div>
-
-    <% for(var item in articles){ %>
-      <div class="card my-3">
-        <h4 class="card-header">
-          <%- articles[item].title %>
-        </h4>
-        <div class="card-body">
-          <%- striptags(articles[item].content).slice(0,150) %> ...
-          <div>
-            <span class="fa fa-clock-o"></span> 
-            <%- moment(articles[item].time *1000).format('YYYY/MM/DD') %>
-            ,
-            <span class="fa fa-folder-open-o"></span>
-            <span>
-              <% for(var category in categories){ 
-                if(categories[category].id === articles[item].category){
-                %>
-                <%- categories[category].name %>
-              <% } } %>
-            </span>
+      <% for(var item in articles){ %>
+        <div class="card my-3">
+          <h4 class="card-header">
+            <%- articles[item].title %>
+          </h4>
+          <div class="card-body">
+            <%- striptags(articles[item].content).slice(0,150) %> ...
+            <div>
+              <span class="fa fa-clock-o"></span> 
+              <%- moment(articles[item].time *1000).format('YYYY/MM/DD') %>
+              ,
+              <span class="fa fa-folder-open-o"></span>
+              <span>
+                <% for(var category in categories){ 
+                  if(categories[category].id === articles[item].category){
+                  %>
+                  <%- categories[category].name %>
+                <% } } %>
+              </span>
+            </div>
+          </div>
+          <div class="card-footer p-0 btn-group">
+            <a href="#" class="btn btn-outline-danger rounded-0 deletePost" data-id="<%- articles[item].id %>" data-title="<%- articles[item].title %>">Delete</a>
+            <a href="/dashboard/article/<%- articles[item].id %>" class="btn btn-outline-secondary w-100 rounded-0">Edit</a>
+            
+              <% if (status == 'public') { %>
+              <a href="/post/<%- articles[item].id %>" target="_blank" class="btn btn-outline-secondary w-100 rounded-0">Preview</a>
+              <% } %>            
           </div>
         </div>
-        <div class="card-footer p-0 btn-group">
-          <a href="#" class="btn btn-outline-danger rounded-0 deletePost" data-id="<%- articles[item].id %>" data-title="<%- articles[item].title %>">刪除</a>
-          <a href="#" class="btn btn-outline-secondary w-100 rounded-0">編輯</a>
-          
-          <a href="#" target="_blank" class="btn btn-outline-secondary w-100 rounded-0">預覽</a>
-          
-        </div>
-      </div>
-    <% } %>
-    
+      <% } %>      
+    </div>
   </div>
-</div>
 
-
-<nav class="my-5" aria-label="Page navigation example">
-  <ul class="pagination justify-content-center">
-    <li class="page-item disabled">
-      <a class="page-link" href="/dashboard/archives" tabindex="-1">Previous</a>
-    </li>
-    
-      <li class="page-item active"> 
-        <a class="page-link" href="/dashboard/archives">
-          1
-        </a>
+  <nav class="my-5" aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+      <li class="page-item disabled">
+        <a class="page-link" href="/dashboard/archives" tabindex="-1">Previous</a>
+      </li>      
+        <li class="page-item active"> 
+          <a class="page-link" href="/dashboard/archives">
+            1
+          </a>
+        </li>      
+        <li class="page-item "> 
+          <a class="page-link" href="/dashboard/archives">
+            2
+          </a>
+        </li>      
+      <li class="page-item ">
+        <a class="page-link" href="/dashboard/archives">Next</a>
       </li>
-    
-      <li class="page-item "> 
-        <a class="page-link" href="/dashboard/archives">
-          2
-        </a>
-      </li>
-    
-    <li class="page-item ">
-      <a class="page-link" href="/dashboard/archives">Next</a>
-    </li>
-  </ul>
-</nav>
-<script>
-  $(document).ready(function(){
-    $('.deletePost').on('click',function(e){
-      e.preventDefault(); //防　a href=# 挑top
-      var id = $(this).data('id');
-      var title = $(this).data('title');
-      if(confirm("Do you want to deltet "+title)){
-        $.ajax({
-          url:"/dashboard/article/delete/"+id,
-          method:'POST'
-        }).done(function(response){
-          console.log(response);
-          window.location = ' /dashboard/archives';
-        })
-      }
+    </ul>
+  </nav>
+  <script>
+    $(document).ready(function(){
+      $('.deletePost').on('click',function(e){
+        e.preventDefault(); //防　a href=# 挑top
+        var id = $(this).data('id');
+        var title = $(this).data('title');
+        if(confirm("Do you want to deltet "+title)){
+          $.ajax({
+            url:"/dashboard/article/delete/"+id,
+            method:'POST'
+          }).done(function(response){
+            console.log(response);
+            window.location = ' /dashboard/archives';
+          })
+        }
+      })
     })
-  })
-</script>
-
-
+  </script>
   <footer class="mt-5 py-3 bg-light text-secondary text-center">
-    六角學院後台管理系統
+    Bolg setting 
   </footer>
 </body>
-
 </html>
