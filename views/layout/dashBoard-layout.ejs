@@ -1,20 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>商務控制後台</title>
+  <title>Management</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <style>
     html {
       font-size: 14px;
     }
-
     .main {
       min-height: calc(100vh - (49px + 49px + 42px + 18px))
+    }
+    a{
+      border-radius: 5px;
+      border-bottom: solid 1px orange;
     }
   </style>
   <!-- JavaScript -->
@@ -23,32 +25,23 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> 
   <script src="https://cdn.ckeditor.com/4.8.0/standard/ckeditor.js"></script>
 </head>
-
 <body>
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-        <a class="navbar-brand" href="/dashboard/">Blog 控制台</a>
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark ">
+    <a class="navbar-brand" href="/">Home</a>
+    <a class="navbar-brand" href="/dashboard/archives">Articles management </a>
+    <a class="navbar-brand" href="/dashboard/categories">Categories management </a>
+
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
             aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
-            
-            <a class="nav-item nav-link active" href="archives.html">文章管理 </a>
-            <a class="nav-item nav-link " href="categories.html">分類管理 </a>
-            
-            </div>
-        </div>
-        <a class="nav-link" href="#">登出</a>
+              <span class="navbar-toggler-icon"></span>
+        </button>
+         <!-- <a class="nav-link" href="#">Log out</a> -->
     </nav>
     <div class="main container-fluid my-4">
-
         <%- content %>
     </div>
-
     <footer class="mt-5 py-3 bg-light text-secondary text-center">
-        六角學院後台管理系統
+        Bolg setting 
     </footer>
 </body>
-
 </html>
