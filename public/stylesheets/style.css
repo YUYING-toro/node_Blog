@@ -1,8 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Balsamiq+Sans:wght@700&family=Kadwa&display=swap');
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
-
+h2{
+  /* index article title */
+  font-family: 'Kadwa', serif;
+}
+h3{
+  font-family: 'Balsamiq Sans', cursive;
+  font-size: 2rem;
+}
+h5{  
+  /* index navbar log */
+  font-family: 'Balsamiq Sans', cursive;
+  font-size: 1.7rem;
+}
 a {
   color: #00B7FF;
+}
+.navbar-dark .navbar-nav .nav-link{
+  color: rgba(240, 248, 255, 0.76);
 }
